@@ -22,7 +22,7 @@ pipeline {
                         usernameVariable: 'USER', 
                         passwordVariable: 'PASS'
                         )]) {
-                    sh "docker login -u ${USER} -p ${PASS}"
+                    sh "echo "${PASS}" | docker login -u ${USER} --password-stdin"
                     sh "docker push karimaraby/pipeline-test:${env.BUILD_NUMBER}"
                 }
             }
