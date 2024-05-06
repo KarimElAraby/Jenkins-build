@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh "echo 'Deploying....'"
                 withCredentials([
-                    usernamepassword(credentials: 'docker-cred', uservariable: USER, passwordvariable: PASS)
+                    usernamePassword(credentials: 'docker-cred', userVariable: USER, passwordVariable: PASS)
                 ]) {
                     sh "docker login -u ${USER} -p ${PASS}"
                 }
