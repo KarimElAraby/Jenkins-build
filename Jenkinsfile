@@ -16,12 +16,16 @@ pipeline {
         } 
     stage('deploy') {
             steps {
-                sh "echo 'Deploying....'"
-                withCredentials([usernamePassword(credentialsId: 'docker-cred', userVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh "docker login -u $USER -p $PASS"
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'docker-cred', 
+                        usernameVariable: 'USER', 
+                        passwordVariable: 'PASS'
+                        )]) {
+                    sh "docker login -u ${USER} -p ${PASS}"
+                    sh "docker push karimaraby/pipeline-test:${env.BUILD_NUMBER}"
                 }
-                sh "docker push karimaraby/pipeline-test:${env.BUILD_NUMBER} "
             }
-        }       
+        }
     }
 }
